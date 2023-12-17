@@ -14,7 +14,7 @@ const addQuestion = async (req, res) => {
       return res.status(400).json({ message: "Question cannot be empty" });
     }
 
-    Question.create({ surveyId: surveyId, question: question });
+    await Question.create({ surveyId: surveyId, question: question });
     res.status(200).json({ message: "Question added" });
   } else {
     res.status(403).json({ message: "Unauthorized" });
@@ -72,25 +72,8 @@ const updateQuestion = async (req, res) => {
   }
 };
 
-const getQuestionsBySurveyId = async (req, res) => {
-  const { surveyId } = req.params;
-
-  if (!surveyId) {
-    return res.status(400).json({ message: "ID not found" });
-  }
-
-  const questions = await Question.find({ surveyId: surveyId });
-
-  if (!questions) {
-    return res.status(400).json({ message: "Questions not found" });
-  }
-
-  res.status(200).json(questions);
-};
-
 module.exports = {
   addQuestion,
   deleteQuestion,
   updateQuestion,
-  getQuestionsBySurveyId,
 };

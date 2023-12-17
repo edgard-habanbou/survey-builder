@@ -80,7 +80,7 @@ const getSurveyById = async (req, res) => {
   const survey = await Survey.findById(surveyId);
   const questions = await Question.find({ surveyId });
   const questionAnswers = await QuestionAnswer.find({ surveyId });
-  res.status(200).json({ survey, questions, questionAnswers, req });
+  res.status(200).json({ survey, questions, questionAnswers });
 };
 
 module.exports = {
