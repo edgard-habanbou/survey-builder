@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const {
   addSurvey,
   deleteSurvey,
@@ -6,8 +7,6 @@ const {
   getAllSurveys,
   getSurveyById,
 } = require("../controllers/survey.controllers");
-
-const router = express.Router();
 
 router.post("/", addSurvey);
 router.delete("/:id", deleteSurvey);

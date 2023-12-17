@@ -1,28 +1,10 @@
-// const { db } = require("../configs/db.configs");
-
 const Survey = require("../models/survey.model");
 const Question = require("../models/question.model");
 const QuestionAnswer = require("../models/question_answer.model");
 const userAnswer = require("../models/user_answer.model");
-const jwt = require("jsonwebtoken");
-
-const getUser = (headers) => {
-  return new Promise((resolve, reject) => {
-    const token = headers.authorization && headers.authorization.split(" ")[1];
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(decoded);
-      }
-    });
-  });
-};
 
 const addSurvey = async (req, res) => {
-  const { id, admin } = await getUser(req.headers);
-  if (admin) {
+  if (req.user.admin) {
     const { title } = req.body;
     if (!title) {
       return res.status(400).json({ message: "Title cannot be empty" });
@@ -35,9 +17,7 @@ const addSurvey = async (req, res) => {
 };
 
 const deleteSurvey = async (req, res) => {
-  const { admin } = await getUser(req.headers);
-
-  if (admin) {
+  if (req.user.admin) {
     const { surveyId } = req.params.surveyId;
 
     if (!surveyId) {
@@ -64,9 +44,7 @@ const deleteSurvey = async (req, res) => {
 };
 
 const updateSurvey = async (req, res) => {
-  const { admin } = await getUser(req.headers);
-
-  if (admin) {
+  if (req.user.admin) {
     const { surveyId } = req.params.surveyId;
     const { title } = req.body;
 
@@ -93,37 +71,16 @@ const updateSurvey = async (req, res) => {
 };
 
 const getAllSurveys = async (req, res) => {
-  let verified = false;
-  getUser(req.headers)
-    .then(() => {
-      verified = true;
-    })
-    .catch((err) => {
-      res.status(400).json({ message: "Not Authorized" });
-    });
-
-  if (verified) {
-    const surveys = await Survey.find();
-    res.status(200).json({ surveys });
-  }
+  const surveys = await Survey.find();
+  res.status(200).json({ surveys });
 };
 
 const getSurveyById = async (req, res) => {
-  let verified = false;
-  getUser(req.headers)
-    .then(() => {
-      verified = true;
-    })
-    .catch((err) => {
-      res.status(400).json({ message: "Not Authorized" });
-    });
-  if (verified) {
-    const surveyId = req.params.id;
-    const survey = await Survey.findById(surveyId);
-    const questions = await Question.find({ surveyId });
-    const questionAnswers = await QuestionAnswer.find({ surveyId });
-    res.status(200).json({ survey, questions, questionAnswers });
-  }
+  const surveyId = req.params.id;
+  const survey = await Survey.findById(surveyId);
+  const questions = await Question.find({ surveyId });
+  const questionAnswers = await QuestionAnswer.find({ surveyId });
+  res.status(200).json({ survey, questions, questionAnswers, req });
 };
 
 module.exports = {

@@ -8,8 +8,14 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
+const { authMiddleware } = require("./middlewares/auth.middleware");
+//survey routes
 const surveyRoutes = require("./routes/survey.routes");
-app.use("/survey", surveyRoutes);
+app.use("/survey", authMiddleware, surveyRoutes);
+
+//question routes
+const questionRoutes = require("./routes/question.routes");
+app.use("/question", authMiddleware, questionRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log("Server listining on PORT: ", process.env.PORT);

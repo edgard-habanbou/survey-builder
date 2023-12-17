@@ -6,12 +6,16 @@ const authMiddleware = async (req, res, next) => {
   if (!token) {
     res.status(403).send("Forbidden");
   } else {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findOne({ username: decoded.username }).select(
-      "-password"
-    );
-    req.user = user;
-    next();
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await User.findOne({ username: decoded.username }).select(
+        "-password"
+      );
+      req.user = user;
+      next();
+    } catch (e) {
+      res.status(403).send("Forbidden");
+    }
   }
 };
 
