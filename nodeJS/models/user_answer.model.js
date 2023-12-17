@@ -6,6 +6,11 @@ const userAnswerSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  surveyId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Survey",
+    required: true,
+  },
   questionId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Question",
@@ -14,11 +19,6 @@ const userAnswerSchema = new mongoose.Schema({
   questionAnswerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "QuestionAnswer",
-    required: true,
-  },
-  surveyId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Survey",
     required: true,
   },
 });

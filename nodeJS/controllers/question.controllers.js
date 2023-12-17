@@ -14,7 +14,7 @@ const addQuestion = async (req, res) => {
       return res.status(400).json({ message: "Question cannot be empty" });
     }
 
-    await Question.create({ surveyId: surveyId, question: question });
+    await Question.create({ surveyId, question });
     res.status(200).json({ message: "Question added" });
   } else {
     res.status(403).json({ message: "Unauthorized" });
