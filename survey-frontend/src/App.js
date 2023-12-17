@@ -1,9 +1,19 @@
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingUser from "./pages/LandingUser";
+import LandingAdmin from "./pages/LandingAdmin";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello World!</h1>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/landing" element={<LandingUser />} />
+          <Route path="/landing-admin" element={<LandingAdmin />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
