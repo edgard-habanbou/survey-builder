@@ -6,6 +6,10 @@ const serveySchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  title: {
+    type: String,
+    required: true,
+  },
 });
 
 const Survey = mongoose.model("Survey", serveySchema);

@@ -23,6 +23,6 @@ const userAnswerSchema = new mongoose.Schema({
   },
 });
 
-const UserAnswer = mongoose.model("Survey", userAnswerSchema);
+const UserAnswer = mongoose.model("UserAnswer", userAnswerSchema);
 
 module.exports = UserAnswer;

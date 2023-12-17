@@ -11,6 +11,11 @@ const questionAnswerSchema = new mongoose.Schema({
     ref: "Question",
     required: true,
   },
+  surveyId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Survey",
+    required: true,
+  },
 });
 
 const QuestionAnswer = mongoose.model("QuestionAnswer", questionAnswerSchema);
