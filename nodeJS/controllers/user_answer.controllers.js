@@ -1,10 +1,10 @@
 const userAnswer = require("../models/user_answer.model");
+const UserFinishedSurvey = require("../models/user_finished_survey.model");
 
 const addAnswers = async (req, res) => {
   if (!req.user.admin) {
     const { answers, surveyId } = req.body;
     const userId = req.user._id;
-    console.log(userId);
     answers.map(async (answer) => {
       const questionId = answer.questionId;
       const questionAnswerId = answer.questionAnswerId;
@@ -15,6 +15,10 @@ const addAnswers = async (req, res) => {
         surveyId: surveyId,
         userId: userId,
       });
+    });
+    UserFinishedSurvey.create({
+      surveyId: surveyId,
+      userId: userId,
     });
     res.json({ message: "Answer added successfully" });
   } else {
