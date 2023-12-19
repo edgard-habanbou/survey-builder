@@ -21,10 +21,6 @@ app.use("/survey", authMiddleware, surveyRoutes);
 const questionRoutes = require("./routes/question.routes");
 app.use("/question", authMiddleware, questionRoutes);
 
-//question answer routes
-const questionAnswerRoutes = require("./routes/question_answer.routes");
-app.use("/question_answer", authMiddleware, questionAnswerRoutes);
-
 //user answer routes
 const userAnswerRoutes = require("./routes/user_answer.routes");
 app.use("/user_answer", authMiddleware, userAnswerRoutes);

@@ -16,9 +16,8 @@ const userAnswerSchema = new mongoose.Schema({
     ref: "Question",
     required: true,
   },
-  questionAnswerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "QuestionAnswer",
+  answer: {
+    type: String,
     required: true,
   },
 });

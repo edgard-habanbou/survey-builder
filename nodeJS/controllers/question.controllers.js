@@ -1,10 +1,9 @@
 const Question = require("../models/question.model");
-const QuestionAnswer = require("../models/question_answer.model");
 const UserAnswer = require("../models/user_answer.model");
 
 const addQuestion = async (req, res) => {
   if (req.user.admin) {
-    const { question, surveyId } = req.body;
+    const { question, surveyId, typeId, answers } = req.body;
 
     if (!surveyId) {
       return res.status(400).json({ message: "ID not found" });
@@ -14,8 +13,13 @@ const addQuestion = async (req, res) => {
       return res.status(400).json({ message: "Question cannot be empty" });
     }
 
-    await Question.create({ surveyId, question });
-    res.status(200).json({ message: "Question added" });
+    const quest = await Question.create({
+      surveyId,
+      question,
+      typeId,
+      answers,
+    });
+    res.status(200).json({ message: "Question added", questionId: quest._id });
   } else {
     res.status(403).json({ message: "Unauthorized" });
   }
@@ -31,9 +35,6 @@ const deleteQuestion = async (req, res) => {
 
     const deletedQuestion = await Question.findByIdAndDelete(questionId);
     if (deletedQuestion) {
-      await QuestionAnswer.deleteMany({
-        questionId: questionId,
-      });
       await UserAnswer.deleteMany({
         questionId: questionId,
       });
@@ -48,7 +49,7 @@ const deleteQuestion = async (req, res) => {
 const updateQuestion = async (req, res) => {
   if (req.user.admin) {
     const questionId = req.params.id;
-    const { question } = req.body;
+    const { question, typeId } = req.body;
 
     if (!questionId) {
       return res.status(400).json({ message: "ID not found" });
@@ -60,6 +61,7 @@ const updateQuestion = async (req, res) => {
 
     const updatedQuestion = await Question.findByIdAndUpdate(questionId, {
       question: question,
+      typeId: typeId,
     });
 
     if (!updatedQuestion) {

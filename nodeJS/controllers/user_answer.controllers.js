@@ -7,11 +7,11 @@ const addAnswers = async (req, res) => {
     const userId = req.user._id;
     answers.map(async (answer) => {
       const questionId = answer.questionId;
-      const questionAnswerId = answer.questionAnswerId;
+      const ans = answer.answer;
 
       await userAnswer.create({
         questionId: questionId,
-        questionAnswerId: questionAnswerId,
+        answer: ans,
         surveyId: surveyId,
         userId: userId,
       });

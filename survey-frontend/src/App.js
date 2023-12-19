@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingUser from "./pages/LandingUser";
-import LandingAdmin from "./pages/LandingAdmin";
+import LandingAdmin from "./pages/Admin/LandingAdmin";
 import Login from "./pages/Login";
 
 function App() {

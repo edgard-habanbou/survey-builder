@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema({
+  typeId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Type",
+    required: true,
+  },
   surveyId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Survey",
@@ -10,6 +15,10 @@ const questionSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+  },
+  answers: {
+    type: Array,
+    required: true,
   },
 });
 
