@@ -7,18 +7,45 @@ function Landing() {
   const [Surveys, setSurveys] = useState([]);
   const [ShowSurvey, setShowSurvey] = useState(true);
   const [ShowProfile, setShowProfile] = useState(false);
-  useEffect(() => {
-    const fetchSurveys = () => {
-      axios
-        .get(process.env.REACT_APP_API_URL + "survey", {
+  const [ShowAddSurvey, setShowAddSurvey] = useState(false);
+  const [surveyTitle, setSurveyTitle] = useState("");
+
+  const AddSurvey = () => {
+    axios
+      .post(
+        process.env.REACT_APP_API_URL + "survey",
+        {
+          title: surveyTitle,
+        },
+        {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("jwt"),
           },
-        })
-        .then((res) => {
-          setSurveys(res.data.surveys);
-        });
-    };
+        }
+      )
+      .then((res) => {
+        setShowAddSurvey(false);
+        fetchSurveys();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const handleAddSurvey = () => {
+    setShowAddSurvey(true);
+  };
+  const fetchSurveys = () => {
+    axios
+      .get(process.env.REACT_APP_API_URL + "survey", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      })
+      .then((res) => {
+        setSurveys(res.data.surveys);
+      });
+  };
+  useEffect(() => {
     fetchSurveys();
   }, []);
   return (
@@ -28,11 +55,35 @@ function Landing() {
         {ShowProfile && <Profile />}
 
         {ShowSurvey && (
-          <div>
+          <div className="flex gap column">
             <h1>Surveys</h1>
-            {Surveys.map((survey, index) => {
-              return <Survey key={index} survey={survey} />;
-            })}
+            <div>
+              {Surveys.map((survey, index) => {
+                return <Survey key={index} survey={survey} />;
+              })}
+            </div>
+            <div>
+              <button onClick={handleAddSurvey} className="btn">
+                Create Survey
+              </button>
+            </div>
+            {ShowAddSurvey && (
+              <div className="flex column gap center">
+                <div>
+                  <input
+                    type="text"
+                    className="input"
+                    id="title"
+                    placeholder="Survey Title"
+                    onChange={(e) => setSurveyTitle(e.target.value)}
+                  />
+                </div>
+
+                <button className="btn" onClick={AddSurvey}>
+                  Add Survey
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

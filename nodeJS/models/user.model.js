@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: "",
+    default: "no-profile-picture-icon.png",
   },
 });
 
