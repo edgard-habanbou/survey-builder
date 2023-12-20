@@ -39,7 +39,44 @@
 .mt-2 {
   margin-top: 2rem;
 }
-
+.btn {
+  border-radius: 10px;
+  padding: 5px 20px;
+  border: none;
+  background-color: green;
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+}
+.btn:hover {
+  cursor: pointer;
+  background-color: #4caf50;
+}
+.danger {
+  background-color: red;
+}
+.input {
+  border-radius: 10px;
+  padding: 5px 20px;
+  color: black;
+  font-size: 15px;
+}
+.half-width {
+  width: 50%;
+}
+.select {
+  border-radius: 10px;
+  padding: 5px 20px;
+  color: white;
+  background-color: slategray;
+  font-size: 15px;
+}
+.margin {
+  margin: 5px 10px;
+}
+.padding {
+  padding: 5px 10px;
+}
 .loading-container {
   position: fixed;
   top: 0;

@@ -1,0 +1,12 @@
+.question-title {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.survey {
+  background-color: aliceblue;
+  padding: 10px;
+  border-radius: 10px;
+}

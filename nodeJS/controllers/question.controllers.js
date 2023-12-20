@@ -49,7 +49,7 @@ const deleteQuestion = async (req, res) => {
 const updateQuestion = async (req, res) => {
   if (req.user.admin) {
     const questionId = req.params.id;
-    const { question, typeId } = req.body;
+    const { question, typeId, answers } = req.body;
 
     if (!questionId) {
       return res.status(400).json({ message: "ID not found" });
@@ -62,6 +62,7 @@ const updateQuestion = async (req, res) => {
     const updatedQuestion = await Question.findByIdAndUpdate(questionId, {
       question: question,
       typeId: typeId,
+      answers: answers,
     });
 
     if (!updatedQuestion) {
