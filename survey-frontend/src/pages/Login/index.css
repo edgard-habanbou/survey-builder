@@ -1,0 +1,10 @@
+.login {
+  background-image: url("http://localhost:8000/images/background.jpg");
+  object-fit: cover;
+}
+.login-form {
+  background-color: rgb(255, 255, 255);
+  margin: 0 auto;
+  width: 50%;
+  padding: 20px;
+}

@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 
+app.use(express.static("public"));
 app.use(express.json());
 require("dotenv").config();
 

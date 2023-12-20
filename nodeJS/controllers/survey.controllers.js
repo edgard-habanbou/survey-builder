@@ -2,6 +2,7 @@ const Survey = require("../models/survey.model");
 const Question = require("../models/question.model");
 const userAnswer = require("../models/user_answer.model");
 const Type = require("../models/type.model");
+const User = require("../models/user.model");
 
 const addSurvey = async (req, res) => {
   if (req.user.admin) {
@@ -69,7 +70,7 @@ const updateSurvey = async (req, res) => {
 };
 
 const getAllSurveys = async (req, res) => {
-  const surveys = await Survey.find();
+  const surveys = await Survey.where({ userId: req.user.id });
   res.status(200).json({ surveys });
 };
 

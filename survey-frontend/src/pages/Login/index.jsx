@@ -3,10 +3,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import "./index.css";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [admin, setAdmin] = useState(false);
   const [register, setRegister] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -30,6 +32,7 @@ function Login() {
         MySwal.hideLoading();
         MySwal.close();
         localStorage.setItem("jwt", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         if (res.data.user.admin) {
           navigate("/landing-admin");
         } else {
@@ -68,6 +71,10 @@ function Login() {
     setLastName(e.target.value);
   };
 
+  const handleAdminChange = (e) => {
+    setAdmin(e.target.checked);
+  };
+
   const handleRegister = () => {
     MySwal.fire({
       title: "Registering...",
@@ -82,6 +89,7 @@ function Login() {
         lname: lastName,
         username: username,
         password: password,
+        admin: admin,
       })
       .then((res) => {
         MySwal.hideLoading();
@@ -100,15 +108,16 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="login">
       {register ? (
-        <div className="flex column gap center full-height">
+        <div className="flex column gap center full-height login-form">
           <div>
             <h2>Register</h2>
           </div>
           <div>
             <input
               type="text"
+              className="input"
               placeholder="First Name"
               onChange={handleFirstNameChange}
             />
@@ -116,6 +125,7 @@ function Login() {
           <div>
             <input
               type="text"
+              className="input"
               placeholder="Last Name"
               onChange={handleLastNameChange}
             />
@@ -123,30 +133,45 @@ function Login() {
           <div>
             <input
               type="text"
+              className="input"
               placeholder="Username"
               onChange={handleUsernameChange}
             />
           </div>
           <div>
             <input
+              className="input"
               type="password"
               placeholder="Password"
               onChange={handlePasswordChange}
             />
           </div>
+          <div className="flex gap">
+            <input
+              className="input"
+              type="checkbox"
+              onChange={handleAdminChange}
+            />
+            <label>Admin</label>
+          </div>
 
-          <button onClick={handleRegister}>Register</button>
+          <button className="btn" onClick={handleRegister}>
+            Register
+          </button>
           <p>Already have an account?</p>
-          <button onClick={handleToggleRegister}>Login</button>
+          <button className="btn" onClick={handleToggleRegister}>
+            Login
+          </button>
         </div>
       ) : (
-        <div className="flex column center gap full-height">
+        <div className="flex column center gap full-height login-form">
           <div>
             <h2>Login</h2>
           </div>
           <div>
             <input
               type="text"
+              className="input"
               placeholder="Username"
               onChange={handleUsernameChange}
             />
@@ -154,18 +179,23 @@ function Login() {
           <div>
             <input
               type="password"
+              className="input"
               placeholder="Password"
               onChange={handlePasswordChange}
             />
           </div>
           <div>
-            <button onClick={handleLogin}>Login</button>
+            <button className="btn" onClick={handleLogin}>
+              Login
+            </button>
           </div>
           <div>
             <p>Don't have an account?</p>
           </div>
           <div>
-            <button onClick={handleToggleRegister}>Register</button>
+            <button className="btn" onClick={handleToggleRegister}>
+              Register
+            </button>
           </div>
         </div>
       )}

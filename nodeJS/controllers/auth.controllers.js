@@ -37,7 +37,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { username, password, fname, lname } = req.body;
+  const { username, password, fname, lname, admin } = req.body;
   if (!username || !password || !fname || !lname) {
     res.status(400).send({ message: "all fields are required" });
     return;
@@ -49,6 +49,7 @@ const register = async (req, res) => {
       password,
       fname,
       lname,
+      admin,
     });
 
     await user.save();

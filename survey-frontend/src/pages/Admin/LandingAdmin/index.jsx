@@ -5,7 +5,7 @@ import Profile from "../components/Profile";
 import axios from "axios";
 function Landing() {
   const [Surveys, setSurveys] = useState([]);
-  const [ShowSurvey, setShowSurvey] = useState(false);
+  const [ShowSurvey, setShowSurvey] = useState(true);
   const [ShowProfile, setShowProfile] = useState(false);
   useEffect(() => {
     const fetchSurveys = () => {
