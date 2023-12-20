@@ -5,9 +5,14 @@ const addAnswers = async (req, res) => {
   if (!req.user.admin) {
     const { answers, surveyId } = req.body;
     const userId = req.user._id;
+
     answers.map(async (answer) => {
       const questionId = answer.questionId;
-      const ans = answer.answer;
+      let ans = answer.answers;
+
+      if (!Array.isArray(ans)) {
+        ans = [ans];
+      }
 
       await userAnswer.create({
         questionId: questionId,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Survey from "../components/Survey";
-import Nav from "../components/Nav";
+import Nav from "../../../components/Nav";
 import Profile from "../components/Profile";
 import axios from "axios";
 function Landing() {

@@ -26,7 +26,6 @@ function Profile() {
         },
       })
       .then((res) => {
-        console.log(res);
         fetchUser();
       })
       .catch((err) => console.log(err));

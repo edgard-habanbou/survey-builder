@@ -3,6 +3,7 @@ const Question = require("../models/question.model");
 const userAnswer = require("../models/user_answer.model");
 const Type = require("../models/type.model");
 const User = require("../models/user.model");
+const userFinishedSurvey = require("../models/user_finished_survey.model");
 
 const addSurvey = async (req, res) => {
   if (req.user.admin) {
@@ -82,10 +83,27 @@ const getSurveyById = async (req, res) => {
   res.status(200).json({ survey, questions, types });
 };
 
+const getAllSurveysUser = async (req, res) => {
+  const surveys = await Survey.find();
+  const finishedSurveys = await userFinishedSurvey.find({
+    userId: req.user.id,
+  });
+
+  const finishedSurveyIds = finishedSurveys.map((survey) =>
+    survey.surveyId.toString()
+  );
+
+  const surveysNotFinished = surveys.filter(
+    (survey) => !finishedSurveyIds.includes(survey._id.toString())
+  );
+
+  res.status(200).json({ surveys: surveysNotFinished });
+};
 module.exports = {
   addSurvey,
   deleteSurvey,
   updateSurvey,
   getAllSurveys,
   getSurveyById,
+  getAllSurveysUser,
 };

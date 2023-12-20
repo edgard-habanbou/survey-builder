@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import AddQuestion from "../AddQuestion";
-import Question from "../Question";
+import Question from "../../../../components/Question";
 import "./index.css";
 
 function Survey({ survey: { _id, title } }) {

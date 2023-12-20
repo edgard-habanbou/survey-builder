@@ -51,7 +51,6 @@ function Login() {
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    console.log("Username: ", username);
   };
 
   const handlePasswordChange = (e) => {
@@ -89,12 +88,10 @@ function Login() {
         lname: lastName,
         username: username,
         password: password,
-        admin: admin,
       })
       .then((res) => {
         MySwal.hideLoading();
         MySwal.close();
-        console.log(res);
         setRegister(false);
       })
       .catch((e) => {
@@ -108,9 +105,9 @@ function Login() {
   };
 
   return (
-    <div className="login">
+    <div className="login flex center full-height">
       {register ? (
-        <div className="flex column gap center full-height login-form">
+        <div className="flex column gap center  login-form">
           <div>
             <h2>Register</h2>
           </div>
@@ -164,7 +161,7 @@ function Login() {
           </button>
         </div>
       ) : (
-        <div className="flex column center gap full-height login-form">
+        <div className="flex column center gap  login-form">
           <div>
             <h2>Login</h2>
           </div>
