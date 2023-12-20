@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../../../components/Nav";
 import Survey from "../components/Surveys";
+import Profile from "../../../components/Profile";
 import axios from "axios";
 function Landing() {
   const [Surveys, setSurveys] = useState([]);
+  const [ShowProfile, setShowProfile] = useState(false);
+  const [ShowSurvey, setShowSurvey] = useState(false);
 
   const fetchSurveys = () => {
     axios
@@ -22,11 +25,13 @@ function Landing() {
   }, []);
   return (
     <div>
-      <Nav />
+      <Nav setShowProfile={setShowProfile} setShowSurvey={setShowSurvey} />
       <div>
-        {Surveys.map((survey, index) => (
-          <Survey survey={survey} key={index} />
-        ))}
+        {ShowProfile && <Profile />}
+        {ShowSurvey &&
+          Surveys.map((survey, index) => (
+            <Survey survey={survey} key={index} />
+          ))}
       </div>
     </div>
   );
